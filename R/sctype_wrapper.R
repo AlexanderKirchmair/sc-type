@@ -10,13 +10,13 @@
 #' 
 sctype_source <- function(){
     # load tissue auto detect
-    source("https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/R/auto_detect_tissue_type.R")
+    source("./R/auto_detect_tissue_type.R")
     # load gene set preparation function
-    source("https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/R/gene_sets_prepare.R")
+    source("./R/gene_sets_prepare.R")
     # load cell type annotation function
-    source("https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/R/sctype_score_.R")
+    source("./R/sctype_score_.R")
     # load ScType database
-    db_ = "https://raw.githubusercontent.com/IanevskiAleksandr/sc-type/master/ScTypeDB_full.xlsx"
+    db_ = "./ScTypeDB_full.xlsx"
     return(db_)
 }
 

@@ -8,17 +8,19 @@
 # @cell_type - cell type (e.g. Immune system, Liver, Pancreas, Kidney, Eye, Brain)
 #
 
-gene_sets_prepare <- function(path_to_db_file, cell_type){
+gene_sets_prepare <- function(path_to_db_file, tissueType=NULL){
   
   cell_markers = openxlsx::read.xlsx(path_to_db_file)
-  cell_markers = cell_markers[cell_markers$tissueType == cell_type,] 
+  if (!is.null(tissueType)){
+    cell_markers = cell_markers[cell_markers$tissueType == tissueType,] 
+  }
   cell_markers$geneSymbolmore1 = gsub(" ","",cell_markers$geneSymbolmore1); cell_markers$geneSymbolmore2 = gsub(" ","",cell_markers$geneSymbolmore2)
   
   # correct gene symbols from the given DB (up-genes)
   cell_markers$geneSymbolmore1 = sapply(1:nrow(cell_markers), function(i){
     
     markers_all = gsub(" ", "", unlist(strsplit(cell_markers$geneSymbolmore1[i],",")))
-    markers_all = toupper(markers_all[markers_all != "NA" & markers_all != ""])
+    markers_all = markers_all[markers_all != "NA" & markers_all != ""]
     markers_all = sort(markers_all)
     
     if(length(markers_all) > 0){
@@ -33,7 +35,7 @@ gene_sets_prepare <- function(path_to_db_file, cell_type){
   cell_markers$geneSymbolmore2 = sapply(1:nrow(cell_markers), function(i){
     
     markers_all = gsub(" ", "", unlist(strsplit(cell_markers$geneSymbolmore2[i],",")))
-    markers_all = toupper(markers_all[markers_all != "NA" & markers_all != ""])
+    markers_all = markers_all[markers_all != "NA" & markers_all != ""]
     markers_all = sort(markers_all)
     
     if(length(markers_all) > 0){
